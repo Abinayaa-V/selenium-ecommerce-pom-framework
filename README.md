@@ -45,18 +45,35 @@ The framework automates end-to-end e-commerce scenarios including:
 - Order placement
 
 ## Project Structure
+The framework follows a Maven standard directory structure. Java classes are organized under the `automation.ecommerce` package.
+
+```text
 src
 ├── main
-│ └── java
-│ ├── pages
-│ ├── components
-│ ├── utils
-│ ├── flows
-│ └── models
+│   ├── java
+│   │   └── automation.ecommerce
+│   │       ├── abstractComponents
+│   │       ├── components
+│   │       ├── flows
+│   │       ├── models
+│   │       ├── pages
+│   │       ├── resources
+│   │       ├── sections
+│   │       └── utils
+│   │
+│   └── resources
+│       └── GlobalData.properties
 │
 └── test
-└── java
-└── tests
+    ├── java
+    │   └── automation.ecommerce
+    │       ├── base
+    │       └── tests
+    │
+    └── resources
+        └── test-files
+            └── sampleFile.png
+```
 
 ## Design Approach
 
