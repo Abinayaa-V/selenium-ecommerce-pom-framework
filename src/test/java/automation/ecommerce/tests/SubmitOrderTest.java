@@ -3,7 +3,6 @@ package automation.ecommerce.tests;
 import java.io.File;
 import java.util.List;
 
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -65,7 +64,7 @@ public class SubmitOrderTest extends BaseTest {
 		LoginPage loginPage = userFlow.logoutUser(home);
 		loginPage.verifyLoginMsg();
 		userFlow.loginUser(loginPage, "ajayy123@gmail.com", "ag987"); //wrong password 
-		Assert.assertEquals(driver.findElement(By.cssSelector("form p[style*='color: red']")).getText(), "Your email or password is incorrect!");
+		Assert.assertEquals(loginPage.getLoginErrorMessage(), "Your email or password is incorrect!");
 		userFlow.loginUser(loginPage, user);
 }
 	

@@ -1,13 +1,10 @@
 package automation.ecommerce.components;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 import automation.ecommerce.abstractComponents.AbstractComponent;
 import automation.ecommerce.pages.AccountDeletedPage;
-import automation.ecommerce.pages.BasePage;
 import automation.ecommerce.pages.CartPage;
 import automation.ecommerce.pages.ContactUsPage;
 import automation.ecommerce.pages.LoginPage;

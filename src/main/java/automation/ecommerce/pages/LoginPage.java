@@ -28,6 +28,7 @@ public class LoginPage extends BasePage {
 	private By signupBtn = By.cssSelector(".row .signup-form .btn");
 	
 	private By existingEmailError = By.cssSelector(".signup-form p[style*='color: red']");
+	private By loginErrorMessage = By.cssSelector("form p[style*='color: red']");
 	
 	public HomePage loginAccount(User user) {
 		WebElement emailField = waitUtils.waitForVisibility(loginEmail);
@@ -82,6 +83,13 @@ public class LoginPage extends BasePage {
 	public String getExistingEmailError() {
 	    return waitUtils
 	            .waitForVisibility(existingEmailError)
+	            .getText();
+	}
+	
+	public String getLoginErrorMessage() {
+
+	    return waitUtils
+	            .waitForVisibility(loginErrorMessage)
 	            .getText();
 	}
 }

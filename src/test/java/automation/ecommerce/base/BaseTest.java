@@ -1,13 +1,8 @@
 package automation.ecommerce.base;
 
-import java.io.File;
-import java.io.IOException;
 import java.time.Duration;
 
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
 import org.openqa.selenium.PageLoadStrategy;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -103,19 +98,5 @@ public class BaseTest {
 	        driver.quit();
 	    }
 	}
-
-	public String getScreenshot(String testCaseName, WebDriver driver) throws IOException {
-
-		TakesScreenshot ts = (TakesScreenshot) driver;
-		File sourceFile = ts.getScreenshotAs(OutputType.FILE);
-		String path = System.getProperty("user.dir") + "/reports/screenshots/" + testCaseName + ".png";
-
-		File destinationFile = new File(path);
-		FileUtils.copyFile(sourceFile, destinationFile);
-
-		return path;
-	}
-	
-	
 	
 }

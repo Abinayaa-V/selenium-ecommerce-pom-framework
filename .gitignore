@@ -1,6 +1,6 @@
 target/
 test-output/
-reports/
+/reports/
 
 .DS_Store
 
