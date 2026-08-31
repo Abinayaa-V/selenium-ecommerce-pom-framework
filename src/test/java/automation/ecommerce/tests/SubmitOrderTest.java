@@ -22,11 +22,10 @@ import automation.ecommerce.pages.PaymentPage;
 import automation.ecommerce.pages.ProductDetailsPage;
 import automation.ecommerce.pages.ProductsPage;
 
+import automation.ecommerce.data.TestDataProvider;
+import automation.ecommerce.utils.RetryAnalyzer;
+
 public class SubmitOrderTest extends BaseTest {
-	
-	User user = new User("Ajay", "Sharma", "ajayy123@gmail.com", "aj987", 
-			"345 N Main St", "United States", "Utah", "Moab", "76546", "1234567890");
-	
 	
 	PaymentDetails payment = new PaymentDetails(
 	        "Ajay Sharma",
@@ -36,8 +35,8 @@ public class SubmitOrderTest extends BaseTest {
 	        "2030");
 		        
 	
-	@Test
-	public void verify_user_registration() {
+	@Test(dataProvider = "userData", dataProviderClass = TestDataProvider.class)
+	public void verify_user_registration(User user) {
 		HomePage home = userFlow.registerUser(new HomePage(driver), user);
 		Assert.assertTrue(
 	            home.menu.getLoggedInUsername()
@@ -45,8 +44,8 @@ public class SubmitOrderTest extends BaseTest {
 	
 	}
 	
-	@Test
-	public void login_correct_email_password() {
+	@Test(dataProvider = "userData", dataProviderClass = TestDataProvider.class)
+	public void login_correct_email_password(User user) {
 		HomePage home = userFlow.registerUser(new HomePage(driver), user);
 		LoginPage loginPage = userFlow.logoutUser(home);
 		HomePage loggedInHome = userFlow.loginUser(loginPage, user);
@@ -58,8 +57,8 @@ public class SubmitOrderTest extends BaseTest {
 		
 	}
 	
-	@Test
-	public void login_incorrect_email_password() {
+	@Test(dataProvider = "userData", dataProviderClass = TestDataProvider.class, retryAnalyzer = RetryAnalyzer.class)
+	public void login_incorrect_email_password(User user) {
 		HomePage home = userFlow.registerUser(new HomePage(driver), user);
 		LoginPage loginPage = userFlow.logoutUser(home);
 		loginPage.verifyLoginMsg();
@@ -68,8 +67,8 @@ public class SubmitOrderTest extends BaseTest {
 		userFlow.loginUser(loginPage, user);
 }
 	
-	@Test
-	public void logOut_User() {
+	@Test(dataProvider = "userData", dataProviderClass = TestDataProvider.class)
+	public void logOut_User(User user) {
 		HomePage home = new HomePage(driver);
 		LoginPage loginPage = home.menu.clickSignUpOrLogin();
 		userFlow.registerUserAndLogout(loginPage, user);
@@ -86,8 +85,8 @@ public class SubmitOrderTest extends BaseTest {
 		userFlow.loginUser(loginPageAfterLogout, user);
 }
 	
-	@Test
-	public void registerUser_existing_email() {
+	@Test(dataProvider = "userData", dataProviderClass = TestDataProvider.class)
+	public void registerUser_existing_email(User user) {
 		HomePage home = new HomePage(driver);
 		LoginPage login = home.menu.clickSignUpOrLogin();
 		userFlow.registerUserAndLogout(login, user);
@@ -215,8 +214,8 @@ public class SubmitOrderTest extends BaseTest {
 		
 	}
 	
-	@Test
-	public void verify_register_while_checkout() throws InterruptedException  {
+	@Test(dataProvider = "userData", dataProviderClass = TestDataProvider.class)
+	public void verify_register_while_checkout(User user) throws InterruptedException  {
 		
 		HomePage home = new HomePage(driver);
 		Assert.assertTrue(home.isHomePageDisplayed());
@@ -250,8 +249,8 @@ public class SubmitOrderTest extends BaseTest {
 		
 	}
 	
-	@Test
-	public void verify_register_before_checkout() throws InterruptedException {
+	@Test(dataProvider = "userData", dataProviderClass = TestDataProvider.class)
+	public void verify_register_before_checkout(User user) throws InterruptedException {
 		HomePage home = new HomePage(driver);
 		Assert.assertTrue(home.isHomePageDisplayed()); 
 		HomePage homePage = userFlow.registerUser(home, user);
@@ -280,8 +279,8 @@ public class SubmitOrderTest extends BaseTest {
 			
 	}
 	
-	@Test
-	public void verify_login_before_checkout() throws InterruptedException {
+	@Test(dataProvider = "userData", dataProviderClass = TestDataProvider.class)
+	public void verify_login_before_checkout(User user) throws InterruptedException {
 		HomePage home = new HomePage(driver);
 		LoginPage loginPage = home.menu.clickSignUpOrLogin();
 		userFlow.registerUserAndLogout(loginPage, user);

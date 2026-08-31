@@ -1,0 +1,14 @@
+[
+  {
+    "firstName": "Ajay",
+    "lastName": "Sharma",
+    "email": "ajayy123@gmail.com",
+    "password": "aj987",
+    "address": "345 N Main St",
+    "country": "United States",
+    "state": "Utah",
+    "city": "Moab",
+    "zipcode": "76546",
+    "mobile": "1234567890"
+  }
+]

@@ -10,18 +10,23 @@ A UI automation framework built using Selenium WebDriver, Java, TestNG, Maven, a
 - Maven
 - Page Object Model (POM)
 - WebDriverManager
+- Extent Reports
+- Git/GitHub
 
 ## Framework Features
 
 - Page Object Model architecture
-- Reusable page components
-- Page component abstraction
+- Reusable page components and sections
+- User flow abstraction for reusable business actions
 - Explicit wait utilities
 - Cross-browser execution support
 - Configurable browser selection
-- User flow abstraction for reusable business actions
-- Data-driven testing support
-- TestNG based test execution
+- Data-driven testing using external JSON test data with TestNG DataProvider
+- JSON data parsing
+- TestNG listeners for execution monitoring and failure handling
+- Extent Reports with automatic failure screenshots
+- TestNG Retry Analyzer for retrying failed test executions
+- TestNG-based test execution
 
 ## Test Coverage
 
@@ -59,7 +64,6 @@ src
 │   │       ├── models
 │   │       ├── pages
 │   │       ├── reports
-│   │       ├── resources
 │   │       ├── sections
 │   │       └── utils
 │   │
@@ -70,9 +74,12 @@ src
     ├── java
     │   └── automation.ecommerce
     │       ├── base
+    │       ├── data
     │       └── tests
     │
     └── resources
+        ├── data
+        │   └── users.json
         └── test-files
             └── sampleFile.png
 ```
