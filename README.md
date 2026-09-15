@@ -6,6 +6,7 @@ A UI automation framework built using Selenium WebDriver, Java, TestNG, Maven, a
 
 - Java
 - Selenium WebDriver
+- Cucumber
 - TestNG
 - Maven
 - Page Object Model (POM)
@@ -21,12 +22,15 @@ A UI automation framework built using Selenium WebDriver, Java, TestNG, Maven, a
 - Explicit wait utilities
 - Cross-browser execution support
 - Configurable browser selection
-- Data-driven testing using external JSON test data with TestNG DataProvider
+- Data-driven testing using external JSON test data
 - JSON data parsing
+- Cucumber BDD feature files written in Gherkin
+- Reusable Cucumber step definitions
+- TestNG integration for Cucumber execution
+- Cucumber HTML execution report
 - TestNG listeners for execution monitoring and failure handling
 - Extent Reports with automatic failure screenshots
 - TestNG Retry Analyzer for retrying failed test executions
-- TestNG-based test execution
 
 ## Test Coverage
 
@@ -53,45 +57,64 @@ The framework automates end-to-end e-commerce scenarios including:
 The framework follows a Maven standard directory structure. Java classes are organized under the `automation.ecommerce` package.
 
 ```text
-src
-├── main
-│   ├── java
-│   │   └── automation.ecommerce
-│   │       ├── abstractComponents
-│   │       ├── components
-│   │       ├── flows
-│   │       ├── listeners
-│   │       ├── models
-│   │       ├── pages
-│   │       ├── reports
-│   │       ├── sections
-│   │       └── utils
+
+selenium-ecommerce-pom-framework/
+├── pom.xml
+├── README.md
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── automation/
+│   │   │       └── ecommerce/
+│   │   │           ├── abstractComponents/
+│   │   │           ├── components/
+│   │   │           ├── flows/
+│   │   │           ├── listeners/
+│   │   │           ├── models/
+│   │   │           ├── pages/
+│   │   │           ├── reports/
+│   │   │           ├── sections/
+│   │   │           └── utils/
+│   │   └── resources/
+│   │       └── GlobalData.properties
 │   │
-│   └── resources
-│       └── GlobalData.properties
-│
-└── test
-    ├── java
-    │   └── automation.ecommerce
-    │       ├── base
-    │       ├── data
-    │       └── tests
-    │
-    └── resources
-        ├── data
-        │   └── users.json
-        └── test-files
-            └── sampleFile.png
+│   └── test/
+│       ├── java/
+│       │   └── automation/
+│       │       └── ecommerce/
+│       │           ├── base/
+│       │           ├── data/
+│       │           ├── runner/
+│       │           │   └── TestNGTestRunner.java
+│       │           └── steps/
+│       │               └── LoginSteps.java
+│       │
+│       └── resources/
+│           ├── data/
+│           │   └── users.json
+│           ├── features/
+│           │   ├── Checkout.feature
+│           │   ├── ContactUs.feature
+│           │   ├── Login.feature
+│           │   ├── Products.feature
+│           │   ├── Registration.feature
+│           │   └── TestCases.feature
+│           └── test-files/
+│               └── sampleFile.png
+
 ```
 
-## Design Approach
+## BDD Approach
 
-The framework follows the Page Object Model design pattern:
+The test automation layer uses Cucumber and Gherkin to describe application behavior in a readable format.
 
-- Each web page has a dedicated Page Object class.
-- Common UI sections are implemented as reusable components.
-- Business workflows are separated into flow classes.
-- Utility classes handle reusable functionality such as waits and configuration.
+- Feature files contain business-readable test scenarios.
+- Step definitions connect Gherkin steps to Java automation code.
+- Page Objects encapsulate page-specific UI interactions.
+- Reusable components and sections encapsulate common UI elements.
+- User flow classes encapsulate reusable business workflows.
+- TestNG is used to execute Cucumber scenarios.
+- Cucumber tags are used to organize and selectively execute scenarios.
 
 ## Test Execution
 
@@ -99,4 +122,28 @@ Run all tests using Maven:
 
 ```bash
 mvn test
+```
+
+Cucumber HTML results are generated at:
+
+```bash
+target/cucumber.html
+```
+
+## Browser Selection
+
+The browser can be configured through GlobalData.properties or overridden from the command line.
+
+Example:
+
+```bash
+mvn test -Dbrowser=chrome
+```
+
+Supported browsers:
+
+- Chrome
+- Firefox
+- Edge
+- Safari
 
