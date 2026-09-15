@@ -13,6 +13,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
 import automation.ecommerce.flows.UserFlow;
+import automation.ecommerce.models.User;
 import automation.ecommerce.pages.HomePage;
 import automation.ecommerce.utils.ConfigReader;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -22,12 +23,13 @@ public class BaseTest {
 	protected WebDriver driver;
 	protected UserFlow userFlow;
 	protected boolean userCreated = false;
-	
+	protected User currentUser;
+
 	//@BeforeMethod
 	public void initializeDriver() {
 
 		String url = ConfigReader.getProperty("url");
-		
+
 		// Priority: System property(-Dbrowser) > config file > default
 		String browserName = System.getProperty("browser");
 
@@ -69,7 +71,7 @@ public class BaseTest {
 		driver.manage().window().maximize();
 		driver.get(url);
 	}
-	
+
 	@BeforeMethod(alwaysRun = true)
 	public void setup() {
 	    initializeDriver();
@@ -80,21 +82,37 @@ public class BaseTest {
 	//@AfterMethod
 	@AfterMethod(alwaysRun = true)
 	public void tearDown() {
-		if (userFlow.isUserCreated() && userFlow.isUserLoggedIn()) {
 
-	        try {
-	            userFlow.deleteUser(new HomePage(driver));
-	        }
-	        catch(Exception e) {
-	            System.out.println(
-	                "User cleanup failed: " + e.getMessage()
-	            );
-	        }
-	    }
+		if (userFlow.isUserCreated()) {
+		    try {
 
-	    if (driver != null) {
+		        if (!userFlow.isUserLoggedIn()) {
+		            userFlow.loginUser(
+		                new HomePage(driver),
+		                currentUser
+		            );
+		        }
+
+		        userFlow.deleteUser(new HomePage(driver));
+
+		    } catch (Exception e) {
+		        System.out.println(
+		            "User cleanup failed: " + e.getMessage()
+		        );
+		    }
+		}
+
+		if (driver != null) {
 	        driver.quit();
 	    }
 	}
-	
+
+	public WebDriver getDriver() {
+	    return driver;
+	}
+
+	public UserFlow getUserFlow() {
+	    return userFlow;
+	}
+
 }

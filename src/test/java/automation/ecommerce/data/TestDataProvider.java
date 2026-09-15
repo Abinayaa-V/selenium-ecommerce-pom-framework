@@ -9,7 +9,7 @@ import automation.ecommerce.models.User;
 import automation.ecommerce.utils.DataReader;
 
 public class TestDataProvider {
-	
+
 	@DataProvider(name = "userData")
     public Object[][] getUserData() throws Exception {
 
@@ -40,4 +40,25 @@ public class TestDataProvider {
 
         return result;
     }
+
+	public static User getUser() throws Exception {
+
+	    List<Map<String, String>> data =
+	            DataReader.getJsonDataToMap("users.json");
+
+	    Map<String, String> userData = data.get(0);
+
+	    return new User(
+	            userData.get("firstName"),
+	            userData.get("lastName"),
+	            userData.get("email"),
+	            userData.get("password"),
+	            userData.get("address"),
+	            userData.get("country"),
+	            userData.get("state"),
+	            userData.get("city"),
+	            userData.get("zipcode"),
+	            userData.get("mobile")
+	    );
+	}
 }
